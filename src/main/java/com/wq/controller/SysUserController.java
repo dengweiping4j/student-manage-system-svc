@@ -57,7 +57,7 @@ public class SysUserController {
     @ApiOperation(value = "register", notes = "注册")
     @ApiImplicitParam(name = "user", value = "用户参数", required = true, paramType = "query")
     @PostMapping(value = "/register")
-    public ResultBody register(@RequestBody SysUser user) {
+    public ResultBody register(@Valid @RequestBody SysUser user) {
         sysUserService.save(user);
         return ResultBody.success();
     }

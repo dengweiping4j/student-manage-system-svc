@@ -4,6 +4,8 @@ import com.wq.entity.ResultBody;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ResultBody BindExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException e) {
+        log.error("数据不合法：{}", e.getMessage());
+        e.printStackTrace();
+        return ResultBody.error(e.getBindingResult().getFieldError().getDefaultMessage());
+    }
 
     /**
      * 全局异常处理
