@@ -4,22 +4,21 @@
 <mapper namespace="com.wq.mapper.SysUserMapper">
 
     <sql id="Base_Column_List">
-        id,user_name,password,role_id,del_flag
+        id,user_name,password,role_id,del_flag,crt_by,crt_time,upd_by,upd_time
     </sql>
 
     <select id="findAll" resultType="com.wq.entity.SysUser">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_user
-        where del_flag != '1'
+        select t1.id,t1.user_name,t1.password,t1.role_id,t1.del_flag,t1.crt_by,t1.crt_time,t1.upd_by,t1.upd_time,t2.role_name
+        from sys_user t1 left join sys_role t2 on t1.role_id = t2.id
+        where t1.del_flag != '1'
         <if test="id != null">
-            AND id= #{id}
+            AND t1.id= #{id}
         </if>
         <if test="userName != null and userName != ''">
-            AND user_name = #{userName}
+            AND t1.user_name = #{userName}
         </if>
         <if test="roleId != null and roleId != ''">
-            AND role_id = #{roleId}
+            AND t1.role_id = #{roleId}
         </if>
     </select>
 

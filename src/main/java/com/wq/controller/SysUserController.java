@@ -15,7 +15,7 @@ import javax.validation.Valid;
  * @date 2021/12/18 11:30
  */
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("/system/user")
 @Api(tags = "系统用户管理类")
 public class SysUserController {
     @Autowired

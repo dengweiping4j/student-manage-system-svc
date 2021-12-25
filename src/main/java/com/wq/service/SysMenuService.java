@@ -1,5 +1,8 @@
 package com.wq.service;
 
+import com.wq.entity.PageParam;
+import com.wq.entity.PageResult;
+import com.wq.entity.SysMenu;
 import com.wq.entity.SysRole;
 
 import java.util.List;
@@ -10,13 +13,15 @@ import java.util.List;
  */
 public interface SysMenuService {
 
-    List<SysRole> find(SysRole role);
+    PageResult<List<SysMenu>> findAll(SysMenu menu, PageParam pageParam);
 
-    SysRole findById(String id);
+    List<SysMenu> find(SysMenu menu);
 
-    void save(SysRole role);
+    SysMenu findById(String id);
 
-    void update(SysRole role);
+    void save(SysMenu menu);
 
-    void deleteById(String roleId);
+    void update(SysMenu menu);
+
+    void deleteById(String id);
 }
