@@ -11,6 +11,7 @@ import com.wq.mapper.SysUserMapper;
 import com.wq.service.SysUserService;
 import com.wq.util.JwtUtil;
 import com.wq.util.Md5Utils;
+import com.wq.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new RuntimeException("用户名已存在");
         }
         Md5Utils.getMD5(user.getPassword());
+        user.setId(UUIDUtil.creatUUID());
         sysUserMapper.insert(user);
     }
 
@@ -67,12 +69,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void deleteByUserName(String userName) {
-        SysUser result = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("user_name", userName));
+    public void deleteById(String id) {
+        SysUser result = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("id", id));
         if (result == null) {
             throw new RuntimeException("用户不存在");
         }
-        result.setDelFlag(Contants.DEL_FLAG_YES);
-        sysUserMapper.updateById(result);
+        sysUserMapper.deleteById(id);
     }
 }

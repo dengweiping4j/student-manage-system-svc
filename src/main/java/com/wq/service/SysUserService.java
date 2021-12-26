@@ -22,5 +22,5 @@ public interface SysUserService {
 
     void update(SysUser user);
 
-    void deleteByUserName(String userName);
+    void deleteById(String id);
 }

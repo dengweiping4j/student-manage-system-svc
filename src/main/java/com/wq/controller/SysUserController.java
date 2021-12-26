@@ -63,16 +63,30 @@ public class SysUserController {
     }
 
     /**
+     * 修改
+     *
+     * @param user
+     * @return
+     */
+    @ApiOperation(value = "update", notes = "修改")
+    @ApiImplicitParam(name = "user", value = "用户参数", required = true, paramType = "query")
+    @PostMapping(value = "/update")
+    public ResultBody update(@Valid @RequestBody SysUser user) {
+        sysUserService.update(user);
+        return ResultBody.success();
+    }
+
+    /**
      * 删除
      *
-     * @param userName
+     * @param id
      * @return
      */
     @ApiOperation(value = "delete", notes = "删除")
     @ApiImplicitParam(name = "userName", value = "用户名", required = true, paramType = "path")
-    @DeleteMapping(value = "/delete/{userName}")
-    public ResultBody register(@PathVariable String userName) {
-        sysUserService.deleteByUserName(userName);
+    @DeleteMapping(value = "/delete/{id}")
+    public ResultBody register(@PathVariable String id) {
+        sysUserService.deleteById(id);
         return ResultBody.success();
     }
 }
