@@ -15,4 +15,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     SysUser login(SysUser user);
 
+    int insertSelective(SysUser user);
+
+    int updateByIdSelective(SysUser user);
 }

@@ -58,14 +58,14 @@ public class SysUserServiceImpl implements SysUserService {
         if (result != null) {
             throw new RuntimeException("用户名已存在");
         }
-        Md5Utils.getMD5(user.getPassword());
+        user.setPassword(Md5Utils.getMD5(user.getPassword()));
         user.setId(UUIDUtil.creatUUID());
-        sysUserMapper.insert(user);
+        sysUserMapper.insertSelective(user);
     }
 
     @Override
     public void update(SysUser user) {
-        sysUserMapper.updateById(user);
+        sysUserMapper.updateByIdSelective(user);
     }
 
     @Override

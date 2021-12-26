@@ -18,6 +18,8 @@ spring:
       test-on-borrow: true
 
 mybatis:
+  global-config:
+    field-strategy: 1
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath*:mapper/*.xml
