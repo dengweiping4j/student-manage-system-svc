@@ -45,6 +45,9 @@ public class SysUser implements Serializable {
     @TableField(exist = false)
     private String roleName;
 
+    @ApiModelProperty("业务ID")
+    private String bizId;
+
     @ApiModelProperty("删除标志 1已删除 0未删除")
     @TableLogic(value = Contants.DEL_FLAG_NO, delval = Contants.DEL_FLAG_YES)
     private String delFlag;

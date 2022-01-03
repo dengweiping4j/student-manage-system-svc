@@ -11,6 +11,7 @@ import com.wq.mapper.SysDictItemMapper;
 import com.wq.mapper.SysDictMapper;
 import com.wq.service.SysDictItemService;
 import com.wq.service.SysDictService;
+import com.wq.util.UUIDUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class SysDictItemServiceImpl implements SysDictItemService {
 
     @Override
     public void save(SysDictItem dictItem) {
+        dictItem.setId(UUIDUtil.creatUUID());
         dictItemMapper.insert(dictItem);
     }
 

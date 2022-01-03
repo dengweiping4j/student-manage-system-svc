@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wq.mapper.TeacherMapper">
+
+    <sql id="Base_Column_List">
+        t.id,t.tea_name,t.tea_code,t.subject,t.sex,t.tel,t.profile_picture,t.del_flag
+    </sql>
+
+    <select id="findAll" resultType="com.wq.entity.TeacherInfo">
+        select
+        <include refid="Base_Column_List"/>,GROUP_CONCAT(t3.cla_name) as classes
+        from t_teacher t
+        join t_teacher_class t2
+        join t_class t3 on t2.class_id = t3.id
+        group by t.id
+        <where>
+            t.del_flag = '0'
+            <if test="id != null">
+                AND t.id= #{id}
+            </if>
+            <if test="teaName != null and teaName != ''">
+                AND t.tea_name like CONCAT('%',#{teaName},'%')
+            </if>
+            <if test="teaCode != null and teaCode != ''">
+                AND t.tea_code like CONCAT('%',#{teaCode},'%')
+            </if>
+            <if test="subject != null and subject != ''">
+                AND t.subject = #{subject}
+            </if>
+            <if test="sex != null and sex != ''">
+                AND t.sex = #{sex}
+            </if>
+            order by t.tea_code
+        </where>
+        order by t.stu_name
+    </select>
+
+</mapper>

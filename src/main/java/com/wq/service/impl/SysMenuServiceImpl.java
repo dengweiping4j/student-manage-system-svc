@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.wq.entity.*;
 import com.wq.mapper.SysMenuMapper;
 import com.wq.service.SysMenuService;
+import com.wq.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void save(SysMenu menu) {
+        menu.setId(UUIDUtil.creatUUID());
         menuMapper.insert(menu);
     }
 

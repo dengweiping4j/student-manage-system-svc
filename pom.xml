@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wq</groupId>
-    <artifactId>student-manage-system-svc</artifactId>
+    <artifactId>studentInfo-manage-system-svc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>student-manage-system-svc</name>
+    <name>studentInfo-manage-system-svc</name>
     <description>Student work manage project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>

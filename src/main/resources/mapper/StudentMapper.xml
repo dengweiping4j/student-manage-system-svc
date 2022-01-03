@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wq.mapper.StudentMapper">
+
+    <sql id="Base_Column_List">
+        t.id,t.stu_name,t.stu_code,t.grade_id,t.class_id,t.sex,t.tel,t.profile_picture,t.del_flag
+    </sql>
+
+    <select id="findAll" resultType="com.wq.entity.StudentInfo">
+        select
+        <include refid="Base_Column_List"/>,t2.grade_name,t3.cla_name
+        from t_student t
+        join t_grade t2 on t.grade_id = t2.id
+        join t_class t3 on t.class_id = t3.id
+        <where>
+            t.del_flag = '0'
+            <if test="id != null">
+                AND t.id= #{id}
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND t.stu_name like CONCAT('%',#{stuName},'%')
+            </if>
+            <if test="stuCode != null and stuCode != ''">
+                AND t.stu_code like CONCAT('%',#{stuCode},'%')
+            </if>
+            <if test="gradeId != null and gradeId != ''">
+                AND t.gradeId = #{gradeId}
+            </if>
+            <if test="classId != null and classId != ''">
+                AND t.class_id = #{classId}
+            </if>
+            <if test="sex != null and sex != ''">
+                AND t.sex = #{sex}
+            </if>
+            order by t.stu_code
+        </where>
+        order by t.stu_name
+    </select>
+
+</mapper>

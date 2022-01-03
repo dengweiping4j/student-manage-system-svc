@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/system/dict")
-@Api(tags = "系统字典管理类")
+@Api(tags = "系统字典管理")
 public class SysDictController {
     @Autowired
     private SysDictService dictService;

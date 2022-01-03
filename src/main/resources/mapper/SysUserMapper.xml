@@ -4,93 +4,26 @@
 <mapper namespace="com.wq.mapper.SysUserMapper">
 
     <sql id="Base_Column_List">
-        id,user_name,password,role_id,del_flag,crt_by,crt_time,upd_by,upd_time
+        id,user_name,password,role_id,biz_id,del_flag,crt_by,crt_time,upd_by,upd_time
     </sql>
 
     <select id="findAll" resultType="com.wq.entity.SysUser">
         select
-        t1.id,t1.user_name,t1.password,t1.role_id,t1.del_flag,t1.crt_by,t1.crt_time,t1.upd_by,t1.upd_time,t2.role_name
+        t1.id,t1.user_name,t1.password,t1.role_id,t1.biz_id,t1.del_flag,t1.crt_by,t1.crt_time,t1.upd_by,t1.upd_time,t2.role_name
         from sys_user t1 left join sys_role t2 on t1.role_id = t2.id
-        where t1.del_flag != '1'
-        <if test="id != null">
-            AND t1.id= #{id}
-        </if>
-        <if test="userName != null and userName != ''">
-            AND t1.user_name like CONCAT('%',#{userName},'%')
-        </if>
-        <if test="roleId != null and roleId != ''">
-            AND t1.role_id = #{roleId}
-        </if>
+        <where>
+            t1.del_flag != '0'
+            <if test="id != null">
+                AND t1.id= #{id}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND t1.user_name like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND t1.role_id = #{roleId}
+            </if>
+        </where>
         order by t1.crt_time desc,t1.upd_time desc
     </select>
-
-    <select id="login" resultType="com.wq.entity.SysUser">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_user
-        where user_name = #{userName,jdbcType=VARCHAR}
-        and password = #{password,jdbcType=VARCHAR}
-        and del_flag !=1
-    </select>
-
-    <insert id="insertSelective">
-        insert into sys_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != ''">
-                id,
-            </if>
-            <if test="userName != null and userName != ''">
-                user_name,
-            </if>
-            <if test="password != null and password != ''">
-                password,
-            </if>
-            <if test="roleId != null and roleId != ''">
-                role_id,
-            </if>
-            <if test="crtBy != null and crtBy != ''">
-                crt_by,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != ''">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="userName != null and userName != ''">
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null and password != ''">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="roleId != null and roleId != ''">
-                #{roleId,jdbcType=VARCHAR},
-            </if>
-            <if test="crtBy != null and updBy != ''">
-                #{crtBy,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-
-    <update id="updateByIdSelective">
-        update sys_user
-        <set>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null and password != ''">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="roleId != null and roleId != ''">
-                role_id = #{roleId,jdbcType=VARCHAR},
-            </if>
-            <if test="delFlag != null and delFlag != ''">
-                del_flag = #{delFlag,jdbcType=VARCHAR},
-            </if>
-            <if test="updBy != null and updBy != ''">
-                upd_by = #{updBy,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
 
 </mapper>

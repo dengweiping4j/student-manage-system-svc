@@ -2,9 +2,9 @@ package com.wq.controller;
 
 import com.wq.entity.PageParam;
 import com.wq.entity.ResultBody;
-import com.wq.entity.SysMenu;
-import com.wq.entity.SysRole;
-import com.wq.service.SysMenuService;
+import com.wq.entity.TeacherInfo;
+import com.wq.service.StudentService;
+import com.wq.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -16,66 +16,66 @@ import javax.validation.Valid;
 
 /**
  * @author 邓卫平
- * @date 2021/12/18 11:30
+ * @date 2022/01/02 12:30
  */
 @RestController
-@RequestMapping("/system/menu")
-@Api(tags = "系统菜单管理")
-public class SysMenuController {
+@RequestMapping("/teacher")
+@Api(tags = "教师信息管理")
+public class TeacherController {
     @Autowired
-    private SysMenuService menuService;
+    private TeacherService teacherService;
 
     /**
      * 分页查询
      *
-     * @param menu
+     * @param teacherInfo
      * @return
      */
     @ApiOperation(value = "findAll", notes = "分页查询", produces = "application/json")
     @ApiResponses({@ApiResponse(code = 200, message = "查询成功")})
     @PostMapping(value = "/findAll")
-    public ResultBody findAll(@RequestBody SysMenu menu, @Valid PageParam page) {
-        return ResultBody.success(menuService.findAll(menu, page));
+    public ResultBody findAll(@RequestBody TeacherInfo teacherInfo, @Valid PageParam page) {
+        return ResultBody.success(teacherService.findAll(teacherInfo, page));
     }
 
     /**
      * 查询
      *
-     * @param dict
+     * @param teacherInfo
      * @return
      */
     @ApiOperation(value = "find", notes = "查询", produces = "application/json")
     @ApiResponses({@ApiResponse(code = 200, message = "查询成功")})
     @PostMapping(value = "/find")
-    public ResultBody find(@RequestBody SysMenu dict) {
-        return ResultBody.success(menuService.find(dict));
+    public ResultBody find(@RequestBody TeacherInfo teacherInfo) {
+        return ResultBody.success(teacherService.find(teacherInfo));
     }
 
     /**
      * 保存
      *
-     * @param dict
+     * @param teacherInfo
      * @return
      */
     @ApiOperation(value = "save", notes = "保存", produces = "application/json")
     @ApiResponses({@ApiResponse(code = 200, message = "保存成功")})
     @PostMapping(value = "/save")
-    public ResultBody save(@RequestBody SysMenu dict) {
-        menuService.save(dict);
+    public ResultBody save(@RequestBody TeacherInfo teacherInfo) {
+        teacherService.save(teacherInfo);
         return ResultBody.success();
     }
 
     /**
      * 修改
      *
-     * @param dict
+     * @param teacherInfo
      * @return
      */
     @ApiOperation(value = "update", notes = "修改", produces = "application/json")
     @ApiResponses({@ApiResponse(code = 200, message = "修改成功")})
     @PutMapping(value = "/update")
-    public ResultBody update(@RequestBody SysMenu dict) {
-        menuService.update(dict);
+    public ResultBody update(@RequestBody TeacherInfo teacherInfo) {
+        teacherService.update(teacherInfo);
         return ResultBody.success();
     }
 
@@ -88,7 +88,7 @@ public class SysMenuController {
     @ApiOperation(value = "delete", notes = "删除")
     @DeleteMapping(value = "/delete/{id}")
     public ResultBody register(@PathVariable String id) {
-        menuService.deleteById(id);
+        teacherService.deleteById(id);
         return ResultBody.success();
     }
 }

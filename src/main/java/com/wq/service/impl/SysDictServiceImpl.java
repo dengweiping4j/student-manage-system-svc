@@ -7,6 +7,7 @@ import com.wq.entity.*;
 import com.wq.mapper.SysDictMapper;
 import com.wq.service.SysDictItemService;
 import com.wq.service.SysDictService;
+import com.wq.util.UUIDUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,7 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void save(SysDict dict) {
+        dict.setId(UUIDUtil.creatUUID());
         dictMapper.insert(dict);
     }
 

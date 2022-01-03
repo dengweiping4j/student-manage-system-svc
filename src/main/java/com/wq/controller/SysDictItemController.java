@@ -19,7 +19,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/system/dictItem")
-@Api(tags = "系统字典项管理类")
+@Api(tags = "系统字典项管理")
 public class SysDictItemController {
     @Autowired
     private SysDictItemService dictItemService;

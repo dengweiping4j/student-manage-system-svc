@@ -24,6 +24,9 @@ public class SysDictItem implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("主键")
+    private String id;
+
     @ApiModelProperty("字典类型")
     private String lookupType;
 

@@ -52,4 +52,7 @@ public class SysRole implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updTime;
+
+    @ApiModelProperty("用户类型 1.系统角色 2.自定义角色")
+    private String roleType;
 }

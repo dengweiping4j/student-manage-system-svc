@@ -16,7 +16,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/system/user")
-@Api(tags = "系统用户管理类")
+@Api(tags = "系统用户管理")
 public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
@@ -49,15 +49,15 @@ public class SysUserController {
     }
 
     /**
-     * 注册
+     * 新增
      *
      * @param user
      * @return
      */
-    @ApiOperation(value = "register", notes = "注册")
+    @ApiOperation(value = "save", notes = "注册")
     @ApiImplicitParam(name = "user", value = "用户参数", required = true, paramType = "query")
-    @PostMapping(value = "/register")
-    public ResultBody register(@Valid @RequestBody SysUser user) {
+    @PostMapping(value = "/save")
+    public ResultBody save(@Valid @RequestBody SysUser user) {
         sysUserService.save(user);
         return ResultBody.success();
     }
@@ -70,7 +70,7 @@ public class SysUserController {
      */
     @ApiOperation(value = "update", notes = "修改")
     @ApiImplicitParam(name = "user", value = "用户参数", required = true, paramType = "query")
-    @PostMapping(value = "/update")
+    @PutMapping(value = "/update")
     public ResultBody update(@Valid @RequestBody SysUser user) {
         sysUserService.update(user);
         return ResultBody.success();

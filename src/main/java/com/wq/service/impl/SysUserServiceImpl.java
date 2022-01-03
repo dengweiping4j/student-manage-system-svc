@@ -12,6 +12,7 @@ import com.wq.service.SysUserService;
 import com.wq.util.JwtUtil;
 import com.wq.util.Md5Utils;
 import com.wq.util.UUIDUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,20 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public String login(SysUser user) {
-        SysUser result = sysUserMapper.login(user);
+        if (user == null) {
+            return null;
+        }
+        if (StringUtils.isBlank(user.getUserName())) {
+            throw new IllegalArgumentException("账号不能为空");
+        }
+        if (StringUtils.isBlank(user.getPassword())) {
+            throw new IllegalArgumentException("密码不能为空");
+        }
+
+        SysUser result = sysUserMapper.selectOne(new QueryWrapper<SysUser>()
+                .eq("user_name", user.getUserName())
+                .eq("password", user.getPassword()));
+
         if (result != null) {
             return JwtUtil.createJwt(result.getUserName());
         }
@@ -56,23 +70,23 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser result = sysUserMapper.selectOne(new QueryWrapper<SysUser>()
                 .eq("user_name", user.getUserName()));
         if (result != null) {
-            throw new RuntimeException("用户名已存在");
+            throw new IllegalArgumentException("用户名已存在");
         }
         user.setPassword(Md5Utils.getMD5(user.getPassword()));
         user.setId(UUIDUtil.creatUUID());
-        sysUserMapper.insertSelective(user);
+        sysUserMapper.insert(user);
     }
 
     @Override
     public void update(SysUser user) {
-        sysUserMapper.updateByIdSelective(user);
+        sysUserMapper.updateById(user);
     }
 
     @Override
     public void deleteById(String id) {
         SysUser result = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("id", id));
         if (result == null) {
-            throw new RuntimeException("用户不存在");
+            throw new IllegalArgumentException("用户不存在");
         }
         sysUserMapper.deleteById(id);
     }
